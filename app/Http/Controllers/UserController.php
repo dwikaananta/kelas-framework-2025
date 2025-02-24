@@ -20,6 +20,12 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
+        $request->validate([
+            'name' => ['required', 'min:3', 'max:100'],
+            'email' => ['required', 'unique:users,email'],
+            'password' => ['required', 'min:3'],
+        ]);
+
         $name = $request->name;
         $email = $request->email;
         $password = $request->password;
