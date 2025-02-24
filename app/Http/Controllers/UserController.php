@@ -38,4 +38,22 @@ class UserController extends Controller
 
         return redirect('/users');
     }
+
+    public function edit($id) {
+        $user = User::find($id);
+
+        return view('users.edit', ['user' => $user]);
+    }
+
+    public function update(Request $request, $id) {
+        $user = User::find($id);
+
+        $request->validate([
+            'name' => ['required', 'min:3', 'max:100'],
+            'email' => ['required', "unique:users,email,$user->id"],
+            'password' => ['required'],
+        ]);
+
+        // $user->update([]);
+    }
 }
