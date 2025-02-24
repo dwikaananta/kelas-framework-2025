@@ -21,17 +21,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>john.doe@example.com</td>
-                    <td>
-                        <form action="#" method="POST" class="btn-group">
-                            <button class="btn btn-sm btn-danger">Del.</button>
-                            <a href="#" class="btn btn-sm btn-success">Edit</a>
-                        </form>
-                    </td>
-                </tr>
+                @foreach ($users as $key => $user)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>
+                            <form action="/users/{{ $user->id }}" method="POST" class="btn-group">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger">Del.</button>
+                                <a href="/users/{{ $user->id }}"
+                                    class="btn btn-sm btn-success">Edit</a>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
