@@ -11,6 +11,13 @@
             </div>
         </div>
 
+        <form action="" class="row justify-content-end my-3">
+            <div class="col-6 d-flex">
+                <input name="search" type="search" class="form-control" placeholder="Search . . .">
+                <button class="btn btn-sm btn-dark text-nowrap">Search Data</button>
+            </div>
+        </form>
+
         <table class="table">
             <thead>
                 <tr>
@@ -39,5 +46,7 @@
                 @endforeach
             </tbody>
         </table>
+
+        {{ $users->links() }}
     </div>
 </x-layout>

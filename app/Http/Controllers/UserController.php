@@ -8,7 +8,15 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index() {
-        $users = User::get();
+        $users = User::latest()
+            ->when(request()->search, function($query) {
+                $query->where(function($query) {
+                    $search = request()->search;
+                    $query->where('name', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                });
+            })
+            ->paginate(10);
 
         return view('users.index', [
             'users' => $users,
@@ -36,7 +44,7 @@ class UserController extends Controller
             'password' => $password,
         ]);
 
-        return redirect('/users');
+        return redirect('/users')->with('success', 'User has stored !');
     }
 
     public function edit($id) {
@@ -63,6 +71,12 @@ class UserController extends Controller
             $user->update(['password' => $request->password]);
         }
 
-        return redirect('/users');
+        return redirect('/users')->with('success', 'User has updated !');
+    }
+
+    public function destroy($id)
+    {
+        User::destroy($id);
+        return redirect('/users')->with('success', 'User has deleted !');
     }
 }
