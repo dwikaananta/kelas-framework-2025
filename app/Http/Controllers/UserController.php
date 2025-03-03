@@ -51,9 +51,18 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'min:3', 'max:100'],
             'email' => ['required', "unique:users,email,$user->id"],
-            'password' => ['required'],
+            'password' => ['nullable'],
         ]);
 
-        // $user->update([]);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        if ($request->password) {
+            $user->update(['password' => $request->password]);
+        }
+
+        return redirect('/users');
     }
 }
