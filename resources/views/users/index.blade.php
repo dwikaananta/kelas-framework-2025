@@ -13,7 +13,7 @@
 
         <form action="" class="row justify-content-end my-3">
             <div class="col-6 d-flex">
-                <input name="search" type="search" class="form-control" placeholder="Search . . .">
+                <input name="search" type="search" value="{{ request('search') }}" class="form-control" placeholder="Search . . .">
                 <button class="btn btn-sm btn-dark text-nowrap">Search Data</button>
             </div>
         </form>
@@ -38,7 +38,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger">Del.</button>
-                                <a href="/users/{{ $user->id }}"
+                                <a href="/users/{{ $user->id }}/edit"
                                     class="btn btn-sm btn-success">Edit</a>
                             </form>
                         </td>

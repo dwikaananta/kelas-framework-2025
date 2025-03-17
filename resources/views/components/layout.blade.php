@@ -14,10 +14,18 @@
         <div class="container justify-content-between d-flex align-items-end">
             <h1 class="text-light">App Name</h1>
             <div class="d-flex gap-3">
+                {{-- for client --}}
                 <a href="/" class="text-light h5">Home</a>
                 <a href="/about" class="text-light h5">About</a>
-                <a href="/users" class="text-light h5">Users</a>
-                <a href="/login" class="text-light h5">Login</a>
+                @guest
+                    <a href="/login" class="text-light h5">Login</a>
+                @endguest
+                {{-- for admin --}}
+                @auth
+                    <a href="/dashboard" class="text-light h5">Dashboard</a>
+                    <a href="/users" class="text-light h5">Users</a>
+                    <a href="/logout" class="text-light h5">Logout</a>
+                @endauth
             </div>
         </div>
     </div>

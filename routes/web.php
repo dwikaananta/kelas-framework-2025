@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,9 +36,22 @@ Route::get('/custom/{name}', function ($name) {
     return "Custom " . $name;
 });
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/create', [UserController::class, 'create']);
-Route::post('/users', [UserController::class, 'store']);
-Route::get('/users/{id}', [UserController::class, 'edit']);
-Route::patch('/users/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
+// Route::get('/users', [UserController::class, 'index']);
+// Route::get('/users/create', [UserController::class, 'create']);
+// Route::post('/users', [UserController::class, 'store']);
+// Route::get('/users/{id}', [UserController::class, 'edit']);
+// Route::patch('/users/{id}', [UserController::class, 'update']);
+// Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+Route::resource('/users', UserController::class);
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
+
+Route::get('/dashboard', function() {
+    $total_user = App\Models\User::count();
+
+    return view('dashboard', [
+        'total_user' => $total_user,
+    ]);
+});
