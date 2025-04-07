@@ -24,6 +24,7 @@
                 @auth
                     <a href="/dashboard" class="text-light h5">Dashboard</a>
                     <a href="/users" class="text-light h5">Users</a>
+                    <a href="/cars" class="text-light h5">Cars</a>
                     <a href="/logout" class="text-light h5">Logout</a>
                 @endauth
             </div>
