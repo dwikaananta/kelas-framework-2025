@@ -27,7 +27,7 @@ Route::get('/about', function () {
 
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
 
 // route with params
 // you can access this route at
@@ -36,22 +36,25 @@ Route::get('/custom/{name}', function ($name) {
     return "Custom " . $name;
 });
 
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/create', [UserController::class, 'create']);
-Route::post('/users', [UserController::class, 'store']);
-Route::get('/users/{id}', [UserController::class, 'edit']);
-Route::patch('/users/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
-
-Route::resource('/users', UserController::class);
+// Route::get('/users', [UserController::class, 'index']);
+// Route::get('/users/create', [UserController::class, 'create']);
+// Route::post('/users', [UserController::class, 'store']);
+// Route::get('/users/{id}', [UserController::class, 'edit']);
+// Route::patch('/users/{id}', [UserController::class, 'update']);
+// Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/dashboard', function() {
-    $total_user = App\Models\User::count();
+// private route
+Route::middleware("auth")->group(function () {
+    Route::get('/dashboard', function () {
+        $total_user = App\Models\User::count();
 
-    return view('dashboard', [
-        'total_user' => $total_user,
-    ]);
+        return view('dashboard', [
+            'total_user' => $total_user,
+        ]);
+    });
+
+    Route::resource('/users', UserController::class);
 });
