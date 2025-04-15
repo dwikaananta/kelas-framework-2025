@@ -24,6 +24,7 @@
                     <th>No</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Total Car</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -33,6 +34,14 @@
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td class="
+                            {{ $user->cars->count() == 0
+                                ? 'text-danger'
+                                : 'text-success' }}
+                         ">
+                            {{-- perhitungan total car --}}
+                            {{ $user->cars->count() }} Cars
+                        </td>
                         <td>
                             <form action="/users/{{ $user->id }}" method="POST" class="btn-group">
                                 @csrf

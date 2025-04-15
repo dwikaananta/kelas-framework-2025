@@ -23,7 +23,8 @@
                 <tr>
                     <th>No</th>
                     <th>Code</th>
-                    <th>Name</th>
+                    <th>Car Name</th>
+                    <th>Owner Name</th>
                     <th>Engine Number</th>
                     <th>Action</th>
                 </tr>
@@ -33,7 +34,8 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $car->code }}</td>
-                        <td>{{ $car->name }}</td>
+                        <td>{{ $car->name }}</td> {{-- Car Name --}}
+                        <td>{{ $car->user->name }}</td> {{-- Owner Name --}}
                         <td>{{ $car->engine_number }}</td>
                         <td>
                             <form action="/cars/{{ $car->id }}" method="POST" class="btn-group">

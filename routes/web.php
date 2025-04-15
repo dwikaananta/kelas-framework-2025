@@ -50,9 +50,17 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::middleware("auth")->group(function () {
     Route::get('/dashboard', function () {
         $total_user = App\Models\User::count();
+        $total_car = App\Models\Car::count();
+
+        $my_car = App\Models\Car::where(
+            'user_id',
+            auth()->user()->id
+        )->get();
 
         return view('dashboard', [
             'total_user' => $total_user,
+            'total_car' => $total_car,
+            'my_car' => $my_car,
         ]);
     });
 

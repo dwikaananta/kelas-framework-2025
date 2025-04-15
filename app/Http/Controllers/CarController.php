@@ -10,7 +10,14 @@ class CarController extends Controller
     // untuk akses semua data car
     public function index()
     {
-        $cars = Car::latest()->paginate(10);
+        $cars = Car::latest()
+            ->where(function($query) {
+                $search = request()->search;
+                $query->where('code', 'like', "%$search%")
+                    ->orWhere('name', 'like', "%$search%")
+                    ->orWhere('engine_number', 'like', "%$search%");
+            })
+            ->paginate(10);
 
         return view('cars.index', [
             'cars' => $cars,

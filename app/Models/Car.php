@@ -14,4 +14,9 @@ class Car extends Model
         'name',
         'engine_number',
     ];
+
+    // relasi dari car ke user
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
